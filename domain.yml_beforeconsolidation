@@ -1,0 +1,22 @@
+---
+- hosts: domaincontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for domain controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+  roles:
+    - domaincontroller
+- hosts: hostcontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for host controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+  roles:
+    - hostcontroller
+

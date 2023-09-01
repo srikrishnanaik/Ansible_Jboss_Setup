@@ -1,0 +1,22 @@
+---
+# tasks file for domaincontroller
+- name: Update managment IP (domain controller)
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-master.xml'
+     regexp: 'jboss.bind.address.management:(.*)'
+     line: '<inet-address value="${jboss.bind.address.management:{{ansible_host}}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Update block for interface (domain controller)
+  blockinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-master.xml'
+     marker: "<!-- {mark} ANSIBLE MANAGED BLOCK -->"
+     insertafter: "</interface>"
+     block: |
+        <interface name="public">
+             <inet-address value="${jboss.bind.address:{{ansible_host}}}"/>
+        </interface>
+        <interface name="unsecure">
+              <inet-address value="${jboss.bind.address.unsecure:{{ansible_host}}}"/>
+        </interface>
+     backup: yes

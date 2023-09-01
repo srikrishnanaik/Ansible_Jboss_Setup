@@ -1,0 +1,10 @@
+---
+# tasks file for standalone
+- include_tasks: default.yml
+  when: eap_profile == "1"
+- include_tasks: ha.yml
+  when: eap_profile == "2"
+- include_tasks: full.yml
+  when: eap_profile == "3"
+- include_tasks: full-ha.yml
+  when: eap_profile == "4"

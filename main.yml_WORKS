@@ -1,0 +1,27 @@
+---
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "jdk_install_dir"
+       prompt: "JDK Installation directory "
+       private: no
+       default: "/opt/java"
+     - name: "jboss_eap_install_dir"
+       prompt: "Jboss EAP Installation directory "
+       private: no
+       default: "/opt/rh"
+     - name: "jboss_user"
+       prompt: "Provide Jboss user ID "
+       private: no
+       default: "jbossadm"
+     - name: "java_version"
+       prompt: "Choose Java Version \n1- JDK1.7\n2- JDK1.8\n"
+       private: no
+     - name: "jboss_version"
+       prompt: "Choose Jboss Version \n1- Jboss EAP 6.4 \n2- Jboss EAP 7\n"
+       private: no
+  roles:
+     - jdk
+     - jboss
+

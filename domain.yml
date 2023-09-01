@@ -1,0 +1,46 @@
+---
+- hosts: domaincontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for domain controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+     - name: "jboss_user_type"
+       prompt: "What type of user do you wish to add?\n a) Management User (mgmt-users.properties) \n b) Application User (application-users.properties) \n"
+       private: no
+     - name: "jboss_mgmtapp_user"
+       prompt: "Add User "
+       private: no
+     - name: "jboss_mgmtapp_pwd"
+       prompt: "Password "
+       private: yes
+       confirm: yes
+  roles:
+     - mgmtappuser
+     - domaincontroller
+- hosts: hostcontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for host controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "master_address"
+       prompt: "Provide domain master address or IP"
+       private: no
+     - name: "domain_user"
+       prompt: "Management User ID "
+       private: no
+     - name: "domain_pwd"
+       prompt: "Secret Value Password in bas64 format "
+       private: yes
+       confirm: yes
+  roles:
+     - hostcontroller
+

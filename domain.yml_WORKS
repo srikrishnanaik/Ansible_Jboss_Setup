@@ -1,0 +1,13 @@
+---
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "jboss_eap_install_dir"
+       prompt: "Jboss EAP Installation directory "
+       private: no
+       default: "/opt/rh"
+  roles:
+    - { role: domaincontroller, tags: ['domaincontroller'] }
+    - { role: hostcontroller, tags: ['hostcontroller'] }
+

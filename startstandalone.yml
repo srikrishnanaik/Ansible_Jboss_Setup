@@ -1,0 +1,18 @@
+---
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: " Enter Jboss Home directory"
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: " OS Jboss User "
+       private: no
+     - name: "profile"
+       prompt: " Enter standalone configuration file (standalone.xml, standalone-ha.xml, standalone-full.xml, standalone-full-ha.xml)\n"
+       private: no
+       default: "standalone.xml"
+  roles:
+     - startstandalone

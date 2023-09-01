@@ -1,0 +1,9 @@
+---
+# tasks file for stophosts
+- name: Stop Host Controller
+  shell: '{{JBOSS_HOME}}/bin/jboss-cli.sh --connect controller={{master_address}}:9990 /host={{ansible_hostname}}:shutdown -u={{mgmt_user}} -p={{mgmt_pwd}}'
+  become: yes
+  become_method: sudo
+  become_user: '{{jboss_user}}'
+  async: 20
+  poll: 0

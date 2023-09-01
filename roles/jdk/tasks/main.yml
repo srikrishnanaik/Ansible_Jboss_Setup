@@ -1,0 +1,36 @@
+---
+# tasks file for jdk
+- set_fact: 
+    jdk_tar_gz: "jdk-7u80-linux-x64.tar.gz"
+    jdk_dir: "jdk1.7.0_80"
+  when: ( java_version == "1" )
+ 
+- set_fact:
+    jdk_tar_gz: "jdk-8u171-linux-x64.tar.gz"
+    jdk_dir: "jdk1.8.0_171"
+  when: ( java_version == "2" )
+
+- file:
+    path: '{{jdk_install_dir}}'
+    state: directory
+    mode: 0755
+- group:
+    name: jbossgroup
+    state: present
+- user:
+    name: '{{jboss_user}}'
+    comment: "Jboss User"
+    shell: /bin/bash
+    group: jbossgroup
+- name: unarchive
+  unarchive:
+    src: '{{jdk_tar_gz}}'
+    dest: '{{jdk_install_dir}}'
+    owner: '{{jboss_user}}'
+    group: jbossgroup
+    mode: 0755
+- include_tasks: CentOS.yml
+  when: ansible_distribution == "CentOS"
+- include_tasks: Ubuntu.yml
+  when: ansible_distribution == "Ubuntu"
+

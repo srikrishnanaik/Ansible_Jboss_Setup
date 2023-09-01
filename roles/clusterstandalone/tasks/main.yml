@@ -1,0 +1,6 @@
+---
+# tasks file for clusterstandalone
+- include_tasks: ha.yml
+  when: profile_type == "a"
+- include_tasks: full-ha.yml
+  when: profile_type == "b"

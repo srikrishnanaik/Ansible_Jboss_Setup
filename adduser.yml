@@ -1,0 +1,24 @@
+---
+- hosts: domaincontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home Directory [EAP_HOME] "
+       private: no
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+     - name: "jboss_user_type"
+       prompt: "What type of user do you wish to add?\n a) Management User (mgmt-users.properties) \n b) Application User (application-users.properties) \n"
+       private: no
+     - name: "jboss_mgmtapp_user"
+       prompt: "Add User "
+       private: no
+     - name: "jboss_mgmtapp_pwd"
+       prompt: "Password "
+       private: yes
+       confirm: yes
+  roles:
+     - mgmtappuser
+

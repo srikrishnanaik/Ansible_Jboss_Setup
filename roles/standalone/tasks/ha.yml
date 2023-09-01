@@ -1,0 +1,21 @@
+- name: Modify management IP address of the host
+  lineinfile:
+     path: '{{JBOSS_HOME}}/standalone/configuration/standalone-ha.xml'
+     regexp: 'jboss.bind.address.management:(.*)'
+     line: '<inet-address value="${jboss.bind.address.management:{{ansible_host}}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Modify bind address of the host
+  lineinfile:
+     path: '{{JBOSS_HOME}}/standalone/configuration/standalone-ha.xml'
+     regexp: 'jboss.bind.address:(.*)'
+     line: '<inet-address value="${jboss.bind.address:{{ansible_host}}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Add socket binding port offset
+  lineinfile:
+     path: '{{JBOSS_HOME}}/standalone/configuration/standalone-ha.xml'
+     regexp: 'jboss.socket.binding.port-offset:(.*)'
+     line: '<socket-binding-group name="standard-sockets" port-offset="${jboss.socket.binding.port-offset:{{port_offset}}}" default-interface="public">'
+     backup: yes
+     backrefs: yes

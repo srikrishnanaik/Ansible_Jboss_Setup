@@ -1,0 +1,7 @@
+---
+# tasks file for mgmtappuser
+- include_tasks: mgmtuser.yml
+  when: jboss_user_type == "a"
+- include_tasks: appuser.yml
+  when: jboss_user_type == "b"
+

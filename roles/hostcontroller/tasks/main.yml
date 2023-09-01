@@ -1,0 +1,44 @@
+---
+# tasks file for hostcontroller
+- name: Add hostname in hosts
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: '^<host xmlns="urn:jboss:domain:4.1">$'
+     line: '<host name="{{ansible_hostname}}" xmlns="urn:jboss:domain:4.1">'
+     backup: yes
+     backrefs: yes
+- name: Add remote user to connect to domain controller
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: '<remote(.*)'
+     line: '<remote username="{{domain_user}}" security-realm="ManagementRealm">'
+     backup: yes
+     backrefs: yes
+- name: Update secret value to connect to domain controller
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: '^(.*)<secret value="(.*)$'
+     line: '<secret value="{{domain_pwd}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Update remote IP of domain controller
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: '<static-discovery(.*)'
+     line: '<static-discovery name="primary" protocol="${jboss.domain.master.protocol:remote}" port="${jboss.domain.master.port:9999}" host="{{master_address}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Modify management IP address of the host
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: 'jboss.bind.address.management:(.*)'
+     line: '<inet-address value="${jboss.bind.address.management:{{ansible_host}}}"/>'
+     backup: yes
+     backrefs: yes
+- name: Modify bind address of the host
+  lineinfile:
+     path: '{{JBOSS_HOME}}/domain/configuration/host-slave.xml'
+     regexp: 'jboss.bind.address:(.*)'
+     line: '<inet-address value="${jboss.bind.address:{{ansible_host}}}"/>'
+     backup: yes
+     backrefs: yes

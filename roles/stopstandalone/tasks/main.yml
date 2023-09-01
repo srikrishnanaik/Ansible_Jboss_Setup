@@ -1,0 +1,9 @@
+---
+# tasks file for stopstandalone
+- name: Stop standalone instance
+  shell: '{{JBOSS_HOME}}/bin/jboss-cli.sh --connect --controller={{ansible_host}}:9990 command=:shutdown'
+  become: yes
+  become_method: sudo
+  become_user: '{{jboss_user}}'
+  async: 20
+  poll: 0

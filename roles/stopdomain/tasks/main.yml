@@ -1,0 +1,9 @@
+---
+# tasks file for stopdomain
+- name: Stop Domain Controller
+  shell: '{{JBOSS_HOME}}/bin/jboss-cli.sh --connect controller={{master_address}}:9990 /host=master:shutdown'
+  become: yes
+  become_method: sudo
+  become_user: '{{jboss_user}}'
+  async: 20
+  poll: 0

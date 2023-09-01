@@ -1,0 +1,9 @@
+- name: "Add Jboss user in the application realm"
+  shell: '{{JBOSS_HOME}}/bin/add-user.sh -a -u {{jboss_mgmtapp_user}} -p {{jboss_mgmtapp_pwd}}'
+  become: yes
+  become_method: sudo
+  become_user: '{{jboss_user}}'
+- name: "Password in base64 format"
+  shell:  echo '{{jboss_mgmtapp_pwd}}'|base64
+  register: result
+- debug: msg="Use the base64 format password "{{result.stdout}}" in application configuration"

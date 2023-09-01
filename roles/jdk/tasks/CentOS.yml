@@ -1,0 +1,11 @@
+- name: Set JAVA_HOME variable on CentOS
+  lineinfile:
+     path: /home/{{jboss_user}}/.bash_profile
+     regexp: '^(.*)JAVA_HOME(.*)'
+     line: 'export JAVA_HOME={{jdk_install_dir}}/{{jdk_dir}}'
+     insertafter: EOF
+- name: Set PATH variable on CentOS
+  lineinfile:
+     path: /home/{{jboss_user}}/.bash_profile
+     line: 'export PATH="$JAVA_HOME/bin:$PATH"'
+     insertafter: EOF

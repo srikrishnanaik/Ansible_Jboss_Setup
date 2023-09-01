@@ -1,0 +1,11 @@
+---
+# tasks file for mgmtappuser
+- include_tasks: mgmtuser.yml
+  when: jboss_user_type == "a"
+- include_tasks: appuser.yml
+  when: jboss_user_type == "b"
+- name: "Password in base64 format"
+  shell:  echo '{{jboss_mgmtapp_pwd}}'|base64
+  register: result
+- debug: msg="Use the base64 format password <secret value="{{result.stdout}}"/> in configuration"
+

@@ -1,0 +1,13 @@
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for standalone instance "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+  roles:
+     - stopstandalone

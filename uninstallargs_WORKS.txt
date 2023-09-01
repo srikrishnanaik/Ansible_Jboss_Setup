@@ -1,0 +1,12 @@
+
+ansible-playbook uninstallargs.yml --extra-vars '{"jdkinstalldir":"/opt/java","eapinstalldir":"/opt/rh/jboss-eap-6.4"}'
+ansible-playbook -i hosts_all uninstallargs.yml --extra-vars '{"jdkinstalldir":"/opt/java","eapinstalldir":"/opt/rh/jboss-eap-6.4"}'
+
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+vars:
+    jdk_install_dir: "{{ jdkinstalldir }}"
+    jboss_eap_install_dir: "{{ eapinstalldir }}"
+  roles:
+     - uninstall

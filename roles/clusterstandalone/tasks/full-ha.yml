@@ -1,0 +1,7 @@
+- name: Standalone full-ha profile cluster
+  template:
+        src: standalone-full-ha.xml.j2
+        dest: '{{JBOSS_HOME}}/standalone/configuration/standalone-full-ha.xml'
+        owner: '{{jboss_user}}'
+        group: jbossgroup
+        backup: yes

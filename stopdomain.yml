@@ -1,0 +1,39 @@
+---
+- hosts: hostcontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for host controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+     - name: "master_address"
+       prompt: "Enter domain controller IP or Hostname"
+       private: no
+     - name: "mgmt_user"
+       prompt: "Enter management user ID: "
+       private: no
+     - name: "mgmt_pwd"
+       prompt: "Password "
+       private: yes
+  roles:
+     - stophosts
+- hosts: domaincontroller
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Jboss EAP Home for domain controller "
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+     - name: "master_address"
+       prompt: "Enter domain controller IP or Hostname"
+       private: no
+  roles:
+     - stopdomain

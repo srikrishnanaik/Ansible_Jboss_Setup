@@ -1,0 +1,12 @@
+- name: Set JAVA_HOME variable on Ubuntu
+  lineinfile:
+     path: /home/{{jboss_user}}/.profile
+     regexp: '^(.*)JAVA_HOME(.*)'
+     line: 'export JAVA_HOME={{jdk_install_dir}}/{{jdk_dir}}'
+     insertafter: EOF
+- name: Set PATH variable on Ubuntu
+  lineinfile:
+     path: /home/{{jboss_user}}/.profile
+     line: 'export PATH="$JAVA_HOME/bin:$PATH"'
+     insertafter: EOF
+

@@ -1,0 +1,9 @@
+---
+# tasks file for startstandalone
+- name: Start Standalone instance
+  shell: '{{JBOSS_HOME}}/bin/standalone.sh --server-config={{profile}} &'
+  become: yes
+  become_method: sudo
+  become_user: '{{jboss_user}}'
+  async: 20
+  poll: 0

@@ -1,0 +1,13 @@
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "jdk_install_dir"
+       prompt: "Remove JDK Installation directory"
+       private: no
+     - name: "jboss_eap_install_dir"
+       prompt: "Remove Jboss EAP Home directory"
+       private: no
+  roles:
+     - uninstall
+

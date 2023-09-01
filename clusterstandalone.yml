@@ -1,0 +1,17 @@
+---
+- hosts: all
+  remote_user: srikrishnanaikb
+  become: yes
+  vars_prompt:
+     - name: "JBOSS_HOME"
+       prompt: "Enter Jboss Home directory"
+       private: no
+       default: "/opt/rh/jboss-eap-7.0"
+     - name: "jboss_user"
+       prompt: "OS Jboss User "
+       private: no
+     - name: "profile_type"
+       prompt: "Choose cluster profile?\n a) ha \n b) full-ha \n"
+       private: no
+  roles:
+     - clusterstandalone

@@ -1,0 +1,24 @@
+---
+# tasks file for jboss
+- set_fact: jboss_zip_archive=jboss-eap-6.4.0.zip
+  when: ( jboss_version == "1" )
+ 
+- set_fact: jboss_zip_archive=jboss-eap-7.0.0.zip
+  when: ( jboss_version == "2" )
+- file:
+    path: '{{jboss_eap_install_dir}}'
+    state: directory
+    mode: 0755
+- name: Copy jboss binary file to remote servers
+  copy:
+    src: '{{jboss_zip_archive}}'
+    dest: /tmp/'{{jboss_zip_archive}}'
+    
+- name: unarchive
+  unarchive:
+    src: '{{jboss_zip_archive}}'
+    dest: '{{jboss_eap_install_dir}}'
+    owner: '{{jboss_user}}'
+    group: jbossgroup
+    mode: 0755
+
